@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CameraResearch</string>
+    <string name="takePictureText">Take picture</string>
+    <string name="turnOnLightButtonText">Light</string>
+    <string name="cameraApplication">Camera activity</string>
+    <string name="videoButtonText">Video</string>
+    <string name="makeVideoButtonText">Create video</string>
+    <string name="videoBuildInApplication">Build in video</string>
+    <string name="videoLabelText">Type video name</string>
+    <string name="videoNewLibrary">New library App</string>
+    <string name="recordButtonText">Record</string>
+</resources>
