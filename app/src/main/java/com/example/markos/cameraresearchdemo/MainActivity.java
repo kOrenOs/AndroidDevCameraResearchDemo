@@ -40,4 +40,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, VideoMainActivity.class);
         startActivity(intent);
     }
+
+    public void openCamera2APIApplication(View view){
+        Intent intent = new Intent(this,  Camera2APIApplication.class);
+        startActivity(intent);
+    }
 }

@@ -2,6 +2,7 @@ package com.example.markos.cameraresearchdemo;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +12,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,13 +23,8 @@ import java.io.IOException;
 public class CameraBuildIn extends AppCompatActivity{
 
     private Camera camera = null;
-    private CameraShow cameraShow;
+    private CameraView cameraShow;
     private FrameLayout displayArea;
-    private String photoPathBase = "/storage/emulated/0/DCIM/Camera/";
-    private String photoNameBase = "photo";
-    private String imageType = ".jpeg";
-    private StringBuilder finalPath;
-    private int momentalIndexName = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,19 +68,24 @@ public class CameraBuildIn extends AppCompatActivity{
         turnOffCamera();
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
     public void takeCameraPictureAction(View view) throws IOException {
         camera.takePicture(null, null, new Camera.PictureCallback() {
             @Override
             public void onPictureTaken(byte[] bytes, Camera camera) {
                 try {
-                    if(!setUpPhotoName()){
+                    String path = MediaLocationsAndSettings.getPhotoName();
+                    if(path == null){
                         Log.e("Error", "Not possible to find proper photo name.");
                         return;
                     }
-                    FileOutputStream fos = new FileOutputStream(finalPath.toString());
+                    FileOutputStream fos = new FileOutputStream(path);
                     fos.write(bytes);
                     fos.close();
-                    momentalIndexName++;
                 } catch (FileNotFoundException e) {
                     Log.e("Error", "File not found: " + e.getMessage());
                     return;
@@ -129,41 +129,12 @@ public class CameraBuildIn extends AppCompatActivity{
         }
     }
 
-    private boolean setUpPhotoName(){
-        String basePath = photoPathBase+photoNameBase;
-
-        StringBuilder fileID = new StringBuilder();
-        fileID.append(momentalIndexName);
-        fileID.append(imageType);
-
-        StringBuilder temp = new StringBuilder(basePath);
-        temp.append(fileID);
-        File file;
-
-        while(momentalIndexName < 100000) {
-            file = new File(temp.toString());
-            if (file.exists()) {
-                momentalIndexName++;
-                fileID.setLength(0);
-                fileID.append(momentalIndexName);
-                fileID.append(imageType);
-                temp.setLength(0);
-                temp.append(basePath);
-                temp.append(fileID);
-            } else {
-                finalPath = temp;
-                return true;
-            }
-        }
-        return false;
-    }
-
     private void restartCamera(){
         turnOffCamera();
         if(!bindCameraInstance()){
             return;
         }
-        cameraShow = new CameraShow(this, camera);
+        cameraShow = new CameraView(this, camera, true);
         displayArea.removeAllViews();
         displayArea.addView(cameraShow);
     }

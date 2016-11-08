@@ -30,7 +30,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/videoActivityButton"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/takePictureButton" />
 
     <Button
         android:onClick="callSecondActivity"
@@ -49,4 +50,14 @@
         android:id="@+id/takePictureButton"
         android:layout_above="@+id/videoActivityButton"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:onClick="openCamera2APIApplication"
+        android:text="@string/camera2ApplicationButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cameraBuildInButton"
+        android:layout_alignStart="@+id/cameraBuildInButton"
+        android:id="@+id/camera2Application"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.markos.cameraresearchdemo;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.util.Log;
@@ -10,37 +11,39 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Markos on 13. 10. 2016.
+ * Created by korenos on 07/11/16.
  */
 
-public class CameraShow extends SurfaceView implements SurfaceHolder.Callback {
+public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 
     private Camera camera;
+    private boolean cameraMediaFormat;
     private SurfaceHolder holder;
     private int areaHeightResulotion = 2000;
     private int areaWidthResulotion = 2000;
     private boolean touchLock = false;
 
-    public CameraShow(Context paContext, Camera paCamera){
+    public CameraView(Context paContext, Camera paCamera, boolean paCameraMediaFormat) {
         super(paContext);
 
         camera = paCamera;
+        cameraMediaFormat = paCameraMediaFormat;
+
         holder = getHolder();
         holder.addCallback(this);
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
         setFocusable(true);
 
-        Camera.Parameters param = camera.getParameters();
-        param.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-        camera.setParameters(param);
+        setFocusmodeByFormat();
+
+        Surface somthing = holder.getSurface();
 
         setOnTouchListener(new OnTouchListener() {
             @Override
@@ -69,9 +72,9 @@ public class CameraShow extends SurfaceView implements SurfaceHolder.Callback {
             public boolean onLongClick(View view) {
                 touchLock = true;
 
-                Camera.Parameters param = camera.getParameters();
-                param.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+                setFocusmodeByFormat();
 
+                Camera.Parameters param = camera.getParameters();
                 param.setFocusAreas(null);
                 param.setMeteringAreas(null);
 
@@ -82,7 +85,7 @@ public class CameraShow extends SurfaceView implements SurfaceHolder.Callback {
                     @Override
                     public void run() {
                         try {
-                            Thread.currentThread().sleep(10000);
+                            Thread.currentThread().sleep(5000);
                         }catch (InterruptedException e){
                         }
                         touchLock = false;
@@ -95,17 +98,17 @@ public class CameraShow extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @Override
-    public void surfaceCreated(SurfaceHolder holder) {
+    public void surfaceCreated(SurfaceHolder surfaceHolder) {
         try{
             camera.setPreviewDisplay(holder);
             camera.startPreview();
         }catch (IOException e){
-            Log.d("Error",  e.getMessage()+"Not successful to preview camera.");
+            Log.d("Error",  e.getMessage()+" Not successful to preview camera.");
         }
     }
 
     @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+    public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
         if (holder.getSurface() == null){
             return;
         }
@@ -113,7 +116,6 @@ public class CameraShow extends SurfaceView implements SurfaceHolder.Callback {
             camera.stopPreview();
         } catch (Exception e){
         }
-
         camera.setDisplayOrientation(orientationChange());
 
         try {
@@ -124,30 +126,39 @@ public class CameraShow extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    private int orientationChange(){
+    @Override
+    public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+    }
+
+    private void setFocusmodeByFormat(){
+        Camera.Parameters param = camera.getParameters();
+        if(cameraMediaFormat){
+            param.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+        }else{
+            param.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+        }
+        camera.setParameters(param);
+    }
+
+    public int orientationChange(){
         WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         int momentalRotation = manager.getDefaultDisplay().getRotation();
-        int rotation = 0;
 
-        Camera.CameraInfo info = new Camera.CameraInfo();
-        Camera.getCameraInfo(0, info);
+        return orientationCalculatior(momentalRotation);
+    }
 
+    private int orientationCalculatior(int momentalRotation){
         switch(momentalRotation){
             case Surface.ROTATION_0:
-                rotation = 90;
-                break;
+                return 90;
             case Surface.ROTATION_90:
-                rotation = 0;
-                break;
+                return 0;
             case Surface.ROTATION_180:
-                rotation = 270;
-                break;
+                return 270;
             case Surface.ROTATION_270:
-                rotation = 180;
-                break;
+                return 180;
+            default: return 0;
         }
-
-        return rotation;
     }
 
     private Rect countRect(float xCoordination, float yCoordination, int moveX, int moveY){
@@ -175,9 +186,5 @@ public class CameraShow extends SurfaceView implements SurfaceHolder.Callback {
         System.out.println(resultXup+", "+resultYup+", "+resultXdown+", "+resultYdown);
 
         return new Rect(resultXup, resultYup, resultXdown, resultYdown);
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
     }
 }

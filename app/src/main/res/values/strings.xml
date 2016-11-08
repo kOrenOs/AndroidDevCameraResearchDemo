@@ -9,4 +9,5 @@
     <string name="videoLabelText">Type video name</string>
     <string name="videoNewLibrary">New library App</string>
     <string name="recordButtonText">Record</string>
+    <string name="camera2ApplicationButtonText">Camera2 API</string>
 </resources>

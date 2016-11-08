@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-feature android:name="android.hardware.camera" />
 
     <application
@@ -20,11 +21,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".CameraBuildIn"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:configChanges="orientation|screenSize" />
         <activity android:name=".VideoMainActivity"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".VideoBuildIn"
-            android:parentActivityName=".VideoMainActivity"/>
+            android:parentActivityName=".VideoMainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Camera2APIApplication"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

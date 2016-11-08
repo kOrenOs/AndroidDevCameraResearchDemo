@@ -3,14 +3,15 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <Button
         android:onClick="recordAction"
         android:text="@string/recordButtonText"
-        android:layout_width="167dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/recordButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 
     <FrameLayout
         android:id="@+id/videoViewContainer"
@@ -18,7 +19,8 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/recordButton">
-
+        android:layout_toStartOf="@+id/recordButton"
+        android:layout_alignParentBottom="true">
     </FrameLayout>
+
 </RelativeLayout>
