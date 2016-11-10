@@ -11,6 +11,7 @@
         android:layout_weight="1.01" />
 
     <Button
+        android:onClick="takePictureAction"
         android:text="@string/takePictureText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
