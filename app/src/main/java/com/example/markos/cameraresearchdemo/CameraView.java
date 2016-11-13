@@ -43,8 +43,6 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
 
         setFocusmodeByFormat();
 
-        Surface somthing = holder.getSurface();
-
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -56,7 +54,7 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
                     param.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
 
                     List<Camera.Area> list = new ArrayList<Camera.Area>();
-                    list.add(new Camera.Area(countRect(Xup, Yup, 100, 100), 1000));
+                    list.add(new Camera.Area(countRect(Xup, Yup, 100, 100), 700));
                     param.setFocusAreas(list);
                     param.setMeteringAreas(list);
 

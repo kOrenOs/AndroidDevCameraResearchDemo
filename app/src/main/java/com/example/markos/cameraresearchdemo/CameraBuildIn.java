@@ -25,6 +25,8 @@ public class CameraBuildIn extends AppCompatActivity{
     private Camera camera = null;
     private CameraView cameraShow;
     private FrameLayout displayArea;
+    private int zoomLevel = 0;
+    private int zoomStep = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class CameraBuildIn extends AppCompatActivity{
         }else{
             button.setText("Turn Off light");
         }
+
+        zoomLevel = param.getZoom();
         camera.setParameters(param);
     }
 
@@ -150,6 +154,36 @@ public class CameraBuildIn extends AppCompatActivity{
             button.setText("Turn On light");
         }
 
+        camera.setParameters(param);
+    }
+
+
+    public void zoomIn(View view){
+        Camera.Parameters param = camera.getParameters();
+        int maxZoom;
+        if(param.isZoomSupported()){
+            maxZoom = param.getMaxZoom();
+
+            if(zoomLevel+zoomStep >= maxZoom){
+                zoomLevel = maxZoom;
+            }else{
+                zoomLevel += zoomStep;
+            }
+            param.setZoom(zoomLevel);
+        }
+        camera.setParameters(param);
+    }
+
+    public void zoomOut(View view){
+        Camera.Parameters param = camera.getParameters();
+        if(param.isZoomSupported()){
+            if(zoomLevel-zoomStep <= 0){
+                zoomLevel = 0;
+            }else{
+                zoomLevel -= zoomStep;
+            }
+            param.setZoom(zoomLevel);
+        }
         camera.setParameters(param);
     }
 }

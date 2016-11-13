@@ -41,12 +41,6 @@ public class VideoBuildIn extends AppCompatActivity {
 
         displayArea = (FrameLayout) findViewById(R.id.videoViewContainer);
         restartCamera();
-
-        /*List<int[]> fps  = camera.getParameters().getSupportedPreviewFpsRange();
-
-        for(int[] fpss: fps){
-            System.out.println(fpss[0]+",   "+fpss[1]+" :   "+fpss.length);
-        }*/
     }
 
     //copied from CameraBuildIn
