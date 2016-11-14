@@ -20,18 +20,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CameraBuildIn"
-            android:parentActivityName=".MainActivity"
-            android:configChanges="orientation|screenSize" />
         <activity android:name=".VideoMainActivity"
             android:parentActivityName=".MainActivity"/>
-        <activity android:name=".VideoBuildIn"
-            android:parentActivityName=".VideoMainActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".Camera2APIApplication"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".Camera2APIApplicationTutorial"
             android:parentActivityName=".MainActivity"/>
+        <activity android:name=".VideoSpecification"
+            android:parentActivityName=".VideoMainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CameraSpecification"
+            android:parentActivityName=".VideoMainActivity"/>
     </application>
 
 </manifest>

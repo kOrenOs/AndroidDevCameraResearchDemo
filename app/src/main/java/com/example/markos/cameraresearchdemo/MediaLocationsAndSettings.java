@@ -1,7 +1,11 @@
 package com.example.markos.cameraresearchdemo;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.media.MediaRecorder;
 import android.view.Surface;
+import android.view.WindowManager;
 
 import java.io.File;
 
@@ -56,6 +60,12 @@ public class MediaLocationsAndSettings {
         return soundOn;
     }
 
+    public static int orientationChange(Context context){
+        WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        int momentalRotation = manager.getDefaultDisplay().getRotation();
+
+        return MediaLocationsAndSettings.orientationCalculatior(momentalRotation);
+    }
 
     public static int orientationCalculatior(int momentalRotation){
         switch(momentalRotation){
@@ -69,6 +79,16 @@ public class MediaLocationsAndSettings {
                 return 180;
             default: return 0;
         }
+    }
+
+    public static Bitmap rotate(Bitmap bitmap, int rotationDegree) {
+        int w = bitmap.getWidth();
+        int h = bitmap.getHeight();
+
+        Matrix mtx = new Matrix();
+        mtx.setRotate(rotationDegree);
+
+        return Bitmap.createBitmap(bitmap, 0, 0, w, h, mtx, true);
     }
 
     public static int selectedVideoFormat(){

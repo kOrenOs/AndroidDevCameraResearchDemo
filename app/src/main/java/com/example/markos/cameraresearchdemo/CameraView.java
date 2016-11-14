@@ -114,7 +114,8 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
             camera.stopPreview();
         } catch (Exception e){
         }
-        camera.setDisplayOrientation(orientationChange());
+
+        camera.setDisplayOrientation(MediaLocationsAndSettings.orientationChange(getContext()));
 
         try {
             camera.setPreviewDisplay(holder);
@@ -138,13 +139,6 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
         camera.setParameters(param);
     }
 
-    public int orientationChange(){
-        WindowManager manager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        int momentalRotation = manager.getDefaultDisplay().getRotation();
-
-        return MediaLocationsAndSettings.orientationCalculatior(momentalRotation);
-    }
-
     private Rect countRect(float xCoordination, float yCoordination, int moveX, int moveY){
         int maxHeight = getHeight();
         int maxWidth = getWidth();
@@ -166,8 +160,6 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback {
         }else{
             resultYdown = areaHeightResulotion/2;
         }
-
-        System.out.println(resultXup+", "+resultYup+", "+resultXdown+", "+resultYdown);
 
         return new Rect(resultXup, resultYup, resultXdown, resultYdown);
     }

@@ -29,7 +29,7 @@ public class VideoMainActivity extends AppCompatActivity{
     }
 
     public void turnOnBuildInVideo(View view){
-        Intent intent = new Intent(this, VideoBuildIn.class);
+        Intent intent = new Intent(this, VideoSpecification.class);
         startActivity(intent);
     }
 

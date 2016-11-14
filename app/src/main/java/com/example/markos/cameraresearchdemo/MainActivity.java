@@ -32,12 +32,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void callSecondActivity(View view){
-        Intent intent = new Intent(this, CameraBuildIn.class);
+        Intent intent = new Intent(this, CameraSpecification.class);
         startActivity(intent);
     }
 
     public void openVideoActivity(View view){
-        Intent intent = new Intent(this, VideoMainActivity.class);
+        Intent intent = new Intent(this, VideoSpecification.class);
         startActivity(intent);
     }
 

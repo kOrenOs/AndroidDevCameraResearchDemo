@@ -4,11 +4,10 @@
     android:layout_height="match_parent">
 
     <Button
-        android:onClick="takeCameraPictureAction"
         android:text="@string/takePictureText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/takeCameraPictureButton"
+        android:id="@+id/actionButton"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -18,7 +17,7 @@
         android:layout_width="340dp"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/takeCameraPictureButton"
+        android:layout_toLeftOf="@+id/actionButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
     </FrameLayout>
@@ -27,13 +26,13 @@
         android:layout_width="340dp"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/takeCameraPictureButton"
+        android:layout_toLeftOf="@+id/actionButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
         <Button
             android:onClick="zoomIn"
-            android:text="+"
+            android:text="@string/zoomInButtonText"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:id="@+id/zoomIn"
@@ -42,7 +41,7 @@
 
         <Button
             android:onClick="zoomOut"
-            android:text="-"
+            android:text="@string/zoomOutButtonText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/zoomOut"
@@ -57,7 +56,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lightButton"
-        android:layout_below="@+id/takeCameraPictureButton"
+        android:layout_below="@+id/actionButton"
         android:layout_toEndOf="@+id/cameraViewContainer"
         android:layout_marginTop="24dp" />
+
+    <Button
+        android:onClick="changeCamera"
+        android:text="@string/cameraChangeButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lightButton"
+        android:layout_toEndOf="@+id/cameraViewContainer"
+        android:layout_marginTop="24dp"
+        android:id="@+id/changeButton" />
 </RelativeLayout>

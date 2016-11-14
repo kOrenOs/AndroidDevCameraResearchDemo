@@ -10,4 +10,7 @@
     <string name="videoNewLibrary">New library App</string>
     <string name="recordButtonText">Record</string>
     <string name="camera2ApplicationButtonText">Camera2 API</string>
+    <string name="zoomInButtonText">+</string>
+    <string name="zoomOutButtonText">-</string>
+    <string name="cameraChangeButtonText">Change camera</string>
 </resources>
