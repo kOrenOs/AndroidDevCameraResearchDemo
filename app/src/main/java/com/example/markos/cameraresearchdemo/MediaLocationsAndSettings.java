@@ -15,50 +15,13 @@ import java.io.File;
 
 public class MediaLocationsAndSettings {
 
-    private static String baseLocation = "/storage/emulated/0/DCIM/Camera/";
+    private static String baseLocation = "/storage/emulated/0/DCIM/";
     private static String photoType = ".jpeg";
     private static String videoType = ".mp4";
     private static String photoBaseName = "photo";
     private static String videoBaseName = "video";
     private static int counterPhoto = 0;
     private static int counterVideo = 0;
-    private static int videoFrameRate = 30;
-    private static boolean soundOn = true;
-
-    public static void setBaseLocation(String location){
-        baseLocation = location;
-    }
-
-    public static void setpPotoBaseName(String baseName){
-        photoBaseName = baseName;
-    }
-
-    public static void setpVideoBaseName(String baseName){
-        videoBaseName = baseName;
-    }
-
-    public static void setVideoType(videoTypes type){
-        switch (type){
-            case mp4: videoType = ".mp4";
-            case threeGpp: videoType = ".3gp";
-        }
-    }
-
-    public static void setVideoFrameRate(int frameRate){
-        videoFrameRate = frameRate;
-    }
-
-    public static int getVideoFrameRate(){
-        return videoFrameRate;
-    }
-
-    public static void setSoundOn(boolean soundStatus){
-        soundOn = soundStatus;
-    }
-
-    public static boolean getSoundOn(){
-        return soundOn;
-    }
 
     public static int orientationChange(Context context){
         WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -147,21 +110,5 @@ public class MediaLocationsAndSettings {
             }
         }
         return -1;
-    }
-
-    public enum videoTypes{
-        mp4,
-        threeGpp
-    }
-
-    public enum videoQuality {
-        QUALITY_HIGH,
-        QUALITY_720P,
-        QUALITY_480P,
-        QUALITY_1080P,
-        QUALITY_CIF,
-        QUALITY_LOW,
-        QUALITY_QCIF,
-        QUALITY_QVGA,
     }
 }

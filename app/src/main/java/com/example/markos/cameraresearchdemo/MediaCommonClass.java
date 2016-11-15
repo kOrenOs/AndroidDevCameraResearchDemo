@@ -82,15 +82,6 @@ public class MediaCommonClass extends AppCompatActivity{
         startPreview(findCameraCode(cameraActiveSide));
     }
 
-    private void setLightButton(Button button){
-        Camera.Parameters param = camera.getParameters();
-        if(param.getFlashMode().compareTo(Camera.Parameters.FLASH_MODE_OFF)==0){
-            button.setText("Flash off");
-        }else{
-            button.setText("Flash on");
-        }
-    }
-
     private int findCameraCode(CameraSides cameraCode){
         switch (cameraCode){
             case back:
